@@ -37,6 +37,4 @@ now we can write our minimal flask app to test it
 TODO: write a Flask app that does something useful!
 
 to start:
--flask -app hello run
-
 flask --debug --app hello run
