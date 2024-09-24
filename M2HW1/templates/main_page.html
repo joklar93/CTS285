@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <title>Equation Checker</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Equation Checker</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Enter an Equation (e.g., 2+2=4)</h2>
+        <form action="/" method="POST">
+            <input type="text" name="equation" class="form-control" placeholder="Type your equation here" value="{{ user_input }}" required>
+            <br>
+            <input type="submit" value="Check" class="btn btn-primary">
+        </form>
+
+        {% if comment %}
+        <div class="alert alert-info" style="margin-top: 20px;">
+            {{ comment }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
