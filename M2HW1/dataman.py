@@ -10,7 +10,7 @@ app.config["DEBUG"] = True
 def evaluate_equation(equation: str) -> str:
     try:
         problem, expected_answer = equation.split('=')
-        expected_answer = float(expected_answer.strip())
+        expected_answer = int(expected_answer.strip())
 
         result = eval(problem.strip())
 
