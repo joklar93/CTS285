@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Dataman</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Quiz</h2>
+        <form action="{{ url_for('check_answer') }}" method="post">
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <input type="text" class="form-control" id="question" name="question" value="{{ question }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="answer">Your Answer:</label>
+                <input type="number" class="form-control" id="answer" name="answer" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Answer</button>
+        </form>
+        {% if result %}
+        <div class="alert {% if result == '--—--=---◌' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+            {{ result }}
+        </div>
+        <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
+        {% endif %}
+    </div>
+</body>
+</html>

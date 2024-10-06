@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Bank</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Dataman</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li class="active"><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Memory Bank</h2>
+        {% if not equations %}
+        <form action="{{ url_for('memory_bank') }}" method="post">
+            {% for i in range(10) %}
+            <div class="form-group">
+                <label for="equation{{ i }}">Equation {{ i + 1 }}:</label>
+                <input type="text" class="form-control" id="equation{{ i }}" name="equation{{ i }}" required
+                       pattern="^(\d{1,2}[\+\-\*/]\d{1,2}=\d{1,3})$"
+                       title="Please enter an equation with two 2-digit numbers and an operator (+, -, *, /) with a result up to 3 digits">
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Save Equations</button>
+        </form>
+        {% else %}
+        <h3>Stored Equations:</h3>
+        <ul>
+            {% for equation in equations %}
+            <li>{{ equation }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('quiz') }}" class="btn btn-success">Start Quiz</a>
+        <a href="{{ url_for('memory_bank') }}" class="btn btn-primary">Enter New Equations</a>
+        {% endif %}
+    </div>
+</body>
+</html>

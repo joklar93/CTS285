@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>Equation Checker</title>
+    <style>
+        .output-box {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .bg-success-custom {
+            background-color: rgba(223, 240, 216, 0.6);
+        }
+        .bg-danger-custom {
+            background-color: rgba(242, 222, 222, 0.6);
+        }
+        .bg-info-custom {
+            background-color: rgba(217, 237, 247, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('answer_checker') }}">Answer Checker</a></li>
+                    <li><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Enter an Equation (2+2=4)</h2>
+        <form action="{{ url_for('answer_checker') }}" method="POST">
+            <input type="text" name="equation" class="form-control" placeholder="Type your equation here" value="{{ user_input }}" required>
+            <br>
+            <input type="submit" value="Check" class="btn btn-primary">
+        </form>
+
+        {% if comment %}
+        <div class="output-box {% if comment == '--—--=---◌' %}bg-success-custom{% elif comment == 'EEE' %}bg-danger-custom{% else %}bg-info-custom{% endif %}">
+            {{ comment }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
