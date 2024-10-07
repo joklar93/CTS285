@@ -64,10 +64,10 @@ def memory_bank():
                     equations.append(equation)
                 elif equation:
                     return jsonify({"success": False, "error": f"Invalid equation: {equation}. Please enter a valid equation."})
-
+                
             session['equations'] = equations
             session['asked_questions'] = []
-            session['score'] = 0  # Reset score for new quiz
+            session['score'] = 0
             session['questions_answered'] = 0
             logging.debug(f"Saved equations: {equations}")
             return jsonify({"success": True})
@@ -90,8 +90,6 @@ def validate_equation_route():
 def quiz():
     if 'equations' not in session or not session['equations']:
         return redirect(url_for('memory_bank'))
-
-    # Initialize score at the beginning of the quiz
     if 'score' not in session:
         session['score'] = 0
     if 'questions_answered' not in session:
