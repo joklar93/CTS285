@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-primary">Submit Answer</button>
                 </form>
             {% else %}
-                <div class="alert {% if result == '--—--=---◌' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                <div class="alert {% if result == '- - — - - = - - - ◌' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
                     {{ result }}
                 </div>
                 <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
