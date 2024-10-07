@@ -21,22 +21,36 @@
 
     <div class="container">
         <h2>Quiz</h2>
-        <form action="{{ url_for('check_answer') }}" method="post">
-            <div class="form-group">
-                <label for="question">Question:</label>
-                <input type="text" class="form-control" id="question" name="question" value="{{ question }}" readonly>
+        {% if quiz_completed %}
+            <div class="alert alert-success" role="alert">
+                Congratulations! You've completed all the questions in the quiz.
+                <p>Your Score: {{ score }} out of 10</p>
             </div>
-            <div class="form-group">
-                <label for="answer">Your Answer:</label>
-                <input type="number" class="form-control" id="answer" name="answer" required>
+            <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
+        {% elif question %}
+            {% if not answer_checked %}
+                <form action="{{ url_for('check_answer') }}" method="post">
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <input type="text" class="form-control" id="question" name="question" value="{{ question }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="answer">Your Answer:</label>
+                        <input type="number" class="form-control" id="answer" name="answer" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Answer</button>
+                </form>
+            {% else %}
+                <div class="alert {% if result == '--—--=---◌' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+                    {{ result }}
+                </div>
+                <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No questions available. Please add some equations to the Memory Bank.
             </div>
-            <button type="submit" class="btn btn-primary">Submit Answer</button>
-        </form>
-        {% if result %}
-        <div class="alert {% if result == '--—--=---◌' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
-            {{ result }}
-        </div>
-        <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
+            <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
         {% endif %}
     </div>
 </body>

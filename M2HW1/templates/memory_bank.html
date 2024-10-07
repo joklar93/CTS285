@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Bank</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -21,17 +22,19 @@
 
     <div class="container">
         <h2>Memory Bank</h2>
-        {% if not equations %}
-        <form action="{{ url_for('memory_bank') }}" method="post">
+        <div id="error-message" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <div id="success-message" class="alert alert-success" role="alert" style="display: none;"></div>
+        {% if show_form or not equations %}
+        <form id="equation-form" action="{{ url_for('memory_bank') }}" method="post">
             {% for i in range(10) %}
             <div class="form-group">
                 <label for="equation{{ i }}">Equation {{ i + 1 }}:</label>
-                <input type="text" class="form-control" id="equation{{ i }}" name="equation{{ i }}" required
-                       pattern="^(\d{1,2}[\+\-\*/]\d{1,2}=\d{1,3})$"
-                       title="Please enter an equation with two 2-digit numbers and an operator (+, -, *, /) with a result up to 3 digits">
+                <input type="text" class="form-control equation-input" id="equation{{ i }}" name="equation{{ i }}" required
+                       pattern="^\d{1,2}\s*[\+\-\*/]\s*\d{1,2}\s*=\s*\d{1,3}$"
+                       title="Please enter a valid equation (e.g., 12 + 34 = 46)">
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary">Save Equations</button>
+            <button type="submit" class="btn btn-primary" id="save-equations">Save Equations</button>
         </form>
         {% else %}
         <h3>Stored Equations:</h3>
@@ -41,8 +44,42 @@
             {% endfor %}
         </ul>
         <a href="{{ url_for('quiz') }}" class="btn btn-success">Start Quiz</a>
-        <a href="{{ url_for('memory_bank') }}" class="btn btn-primary">Enter New Equations</a>
+        <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
         {% endif %}
     </div>
+
+    <script>
+    $(document).ready(function() {
+        $("#equation-form").on("submit", function(e) {
+            e.preventDefault();
+            var $form = $(this);
+            var $errorMessage = $("#error-message");
+            var $successMessage = $("#success-message");
+
+            $errorMessage.hide();
+            $successMessage.hide();
+
+            $.ajax({
+                url: $form.attr("action"),
+                method: $form.attr("method"),
+                data: $form.serialize(),
+                dataType: "json",
+                success: function(response) {
+                    if (response.success) {
+                        $successMessage.text("Equations saved successfully!").show();
+                        window.location.href = "{{ url_for('memory_bank') }}";
+                    } else {
+                        $errorMessage.text(response.error).show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    console.error("Response:", xhr.responseText);
+                    $errorMessage.text("An error occurred while saving equations. Please try again.").show();
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
