@@ -20,3 +20,9 @@
 ## If anything does not work
 - Close the program browser and stop the program
 - trying running in debug mode again with: flask --debug --app dataman run
+
+## My ToDo's
+- Clean up main page and change fonts
+- Clean up navigation on games
+- Fix input for answer checker - needs to be two 2 digits with at most 3 digit answer
+- Get started on the number guesser (should not be too dificult)
