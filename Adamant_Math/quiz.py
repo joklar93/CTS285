@@ -21,8 +21,9 @@ def quiz():
 
     asked_questions.append(question)
     session['asked_questions'] = asked_questions
+    question_number = session['questions_answered'] + 1
 
-    return render_template("quiz.html", question=left_side)
+    return render_template("quiz.html", question=left_side, question_number=question_number)
 
 def check_answer():
     user_answer = request.form.get("answer")
@@ -39,7 +40,14 @@ def check_answer():
             result = "Incorrect"
 
     session['questions_answered'] += 1
+    question_number = session['questions_answered'] + 1
+
     if session['questions_answered'] == 10:
         return render_template("quiz.html", quiz_completed=True, score=session['score'])
     
-    return render_template("quiz.html", question=question, result=result, answer_checked=True)
+    return render_template("quiz.html", question=question, result=result, answer_checked=True, question_number=question_number)
+
+def _clear_quiz_session():
+    session.pop('score', None)
+    session.pop('questions_answered', None)
+    session.pop('asked_questions', None)

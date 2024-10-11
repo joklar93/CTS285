@@ -1,5 +1,5 @@
 
-import random, re, logging
+import random, re, logging, traceback
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from answer_checker import validate_equation, evaluate_equation
 from memory_bank import memory_bank, validate_equation_route
@@ -10,6 +10,9 @@ app.secret_key = 'thepanthersarenevergoingtowinasuperbowlinmylifetime'
 app.config["DEBUG"] = True
 
 logging.basicConfig(level=logging.DEBUG)
+
+#If quiz question does not work try:
+#app.jinja_env.globals.update(QUESTIONS_PER_QUIZ=10)
 
 @app.route("/", methods=["GET", "POST"])
 def index():

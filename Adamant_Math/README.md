@@ -1,5 +1,11 @@
 # Dataman Calculator
 
+## My TODOS
+ - Add back button to enter equation
+ - number_guesser
+
+
+## TO RUN:
 ## Change directories and get into a virtual environment
 - cd M2HW1
 - pip install virtualenv
@@ -21,8 +27,3 @@
 - Close the program browser and stop the program
 - trying running in debug mode again with: flask --debug --app dataman run
 
-## My ToDo's
-- Clean up main page and change fonts
-- Clean up navigation on games
-- Fix input for answer checker - needs to be two 2 digits with at most 3 digit answer
-- Get started on the number guesser (should not be too dificult)
