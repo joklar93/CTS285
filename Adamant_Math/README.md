@@ -1,8 +1,13 @@
 # Dataman Calculator
 
 ## My TODOS
- - Add back button to enter equation
- - number_guesser
+- remove feedback on quiz
+- center number guesser
+- remove previous entries from all games
+- number guesser reset button/ reset when leaving page
+- a start button for memory game
+- quiz navbar
+
 
 
 ## TO RUN:

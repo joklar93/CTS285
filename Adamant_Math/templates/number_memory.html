@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Memory</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 20vh;
+            text-align: center;
+        }
+        #sequence {
+            font-size: 2.5rem; 
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url_for('answer_checker') }}">Answer Checker</a></li>
+                <li class="active"><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+                <li class="active"><a href="{{ url_for('number_guesser') }}">Number Guesser</a></li>
+                <li class="active"><a href="{{ url_for('number_memory') }}">Number Memory</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content-container">
+        <h2>Number Memory Game</h2>
+        <p>{{ message }}</p>
+        <p id="sequence">{{ sequence }}</p>
+        <form method="POST" action="{{ url_for('number_memory') }}">
+            <label for="user_input">Enter the sequence:</label>
+            <input type="text" id="user_input" name="user_input" required disabled>
+            <button type="submit" id="submit-btn" disabled>Submit</button>
+        </form>
+        <a href="{{ url_for('reset_game') }}">Restart</a>
+    </div>
+    <script>
+        setTimeout(() => {
+            document.getElementById('sequence').style.display = 'none';
+            document.getElementById('user_input').disabled = false;
+            document.getElementById('submit-btn').disabled = false; 
+        }, 5000);
+    </script>
+</body>
+</html>

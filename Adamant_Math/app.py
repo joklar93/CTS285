@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from answer_checker import validate_equation, evaluate_equation
 from memory_bank import memory_bank, validate_equation_route
 from quiz import quiz, check_answer
+from number_guesser import number_guesser
+from number_memory import number_memory, reset_game
 
 app = Flask(__name__)
 app.secret_key = 'thepanthersarenevergoingtowinasuperbowlinmylifetime'
@@ -31,6 +33,9 @@ app.route("/memory_bank", methods=["GET", "POST"])(memory_bank)
 app.route("/validate_equation", methods=["POST"])(validate_equation_route)
 app.route("/quiz")(quiz)
 app.route("/check_answer", methods=["POST"])(check_answer)
+app.route("/number_guesser", methods=["GET", "POST"])(number_guesser)
+app.route("/number_memory", methods=["GET", "POST"])(number_memory)
+app.route("/reset_memory")(reset_game)
 
 if __name__ == "__main__":
     app.run()

@@ -10,14 +10,16 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="text-center" style="margin-top: 20px;">The Dataman</h1>
+            <h1 class="text-center" style="margin-top: 20px;">Adamant Math</h1>
         </header>
-        <p>Adamant Math will only accept whole numbers with 2 digits. The answer can only be up to 3 digits.</p>
+        <p>Adamant Math is a fun way to play games and learn math at the same time! Freestyling with your own questions or taking a quiz with question you have set are fun ways to quickly improve your math skills. The number guessing and number memory games are fun for improving your memory and critical thinking skills.</p>
         <section style="margin-top: 30px;">
             <h2 class="text-center">Choose modes:</h2>
             <div class="text-center" style="margin-top: 20px;">
                 <a href="{{ url_for('answer_checker') }}" class="btn btn-primary btn-lg" style="margin: 10px;">Answer Checker</a>
                 <a href="{{ url_for('memory_bank') }}" class="btn btn-primary btn-lg" style="margin: 10px;">Memory Bank Game</a>
+                <a href="{{ url_for('number_guesser') }}" class="btn btn-primary btn-lg" style="margin: 10px;">Number Guesser</a>
+                <a href="{{ url_for('number_memory') }}" class="btn btn-primary btn-lg" style="margin: 10px;">Number Memory</a>
             </div>
         </section>
     </div>
