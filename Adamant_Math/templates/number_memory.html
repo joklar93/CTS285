@@ -38,12 +38,12 @@
         <h2>Number Memory Game</h2>
         <p>{{ message }}</p>
         <p id="sequence">{{ sequence }}</p>
-        <form method="POST" action="{{ url_for('number_memory') }}">
+        <form method="POST" action="{{ url_for('number_memory') }}" autocomplete="off">
             <label for="user_input">Enter the sequence:</label>
-            <input type="text" id="user_input" name="user_input" required disabled>
+            <input type="text" id="user_input" name="user_input" autocomplete="off" required disabled>
             <button type="submit" id="submit-btn" disabled>Submit</button>
         </form>
-        <a href="{{ url_for('reset_game') }}">Restart</a>
+        <a href="{{ url_for('number_guesser') }}" class="btn btn-primary">Restart</a>
     </div>
     <script>
         setTimeout(() => {

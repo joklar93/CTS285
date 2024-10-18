@@ -1,12 +1,10 @@
 # Dataman Calculator
 
 ## My TODOS
-- remove feedback on quiz
-- center number guesser
-- remove previous entries from all games
-- number guesser reset button/ reset when leaving page
-- a start button for memory game
-- quiz navbar
+- remove previous entries from all games (maybe)
+- number guesser reset button/ reset when leaving page. (I got the button but not ressetting the game)
+
+
 
 
 

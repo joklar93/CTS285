@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guesser</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .main-content {
+            text-align: center;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -20,12 +26,15 @@
             </ul>
         </div>
     </nav>
-    <h2>Guess the Number (0-99)</h2>
-    <p>{{ message }}</p>
-    <form method="POST" action="{{ url_for('number_guesser') }}">
-        <label for="guess">Enter your guess:</label>
-        <input type="number" id="guess" name="guess" min="0" max="99" required>
-        <button type="submit">Guess</button>
-    </form>
+    <div class="main-content">
+        <h2>Guess the Number (0-99)</h2>
+        <p>{{ message }}</p>
+        <form method="POST" action="{{ url_for('number_guesser') }}">
+            <label for="guess">Enter your guess:</label>
+            <input type="number" id="guess" name="guess" min="0" max="99" required>
+            <button type="submit">Guess</button>
+        </form>
+        <a href="{{ url_for('number_guesser') }}" class="btn btn-primary">Restart</a>
+    </div>
 </body>
 </html>

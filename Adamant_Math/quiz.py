@@ -2,28 +2,36 @@ import random
 from flask import render_template, request, session, redirect, url_for
 
 def quiz():
-    if 'equations' not in session or not session['equations']:
-        return redirect(url_for('memory_bank'))
-    if 'score' not in session:
+    if 'reset_quiz' in request.args:
+        _clear_quiz_session()
         session['score'] = 0
-    if 'questions_answered' not in session:
         session['questions_answered'] = 0
+        session['equations'] = session.get('equations', [])
+        return redirect(url_for('quiz'))
     
-    equations = session['equations']
-    asked_questions = session.get('asked_questions', [])
-    available_questions = [eq for eq in equations if eq not in asked_questions]
+    equations = session.get('equations', [])
+    questions_answered = session.get('questions_answered', 0)
+    
+    if questions_answered >= 10:
+        score = session.get('score', 0)
+        quiz_completed = True
+        return render_template("quiz.html", quiz_completed=quiz_completed, score=score)
 
-    if not available_questions:
-        return render_template("quiz.html", quiz_completed=True, score=session['score'])
+    if request.method == "POST":
+        user_answer = request.form.get("answer")
+        correct_answer = eval(session['equations'][questions_answered].split('=')[0].strip())
+        
+        if int(user_answer) == correct_answer:
+            session['score'] += 1
+            
+        session['questions_answered'] += 1
+        return redirect(url_for('quiz'))
 
-    question = random.choice(available_questions)
-    left_side = question.split('=')[0]
+    if questions_answered < len(equations):
+        question = session['equations'][questions_answered].split('=')[0]
+        return render_template("quiz.html", question=question, question_number=questions_answered + 1, answer_checked=False)
 
-    asked_questions.append(question)
-    session['asked_questions'] = asked_questions
-    question_number = session['questions_answered'] + 1
-
-    return render_template("quiz.html", question=left_side, question_number=question_number)
+    return redirect(url_for('memory_bank', show_form=True))
 
 def check_answer():
     user_answer = request.form.get("answer")
@@ -46,6 +54,12 @@ def check_answer():
         return render_template("quiz.html", quiz_completed=True, score=session['score'])
     
     return render_template("quiz.html", question=question, result=result, answer_checked=True, question_number=question_number)
+
+def reset_quiz():
+    _clear_quiz_session()
+    session['score'] = 0
+    session['questions_answered'] = 0
+    return redirect(url_for('quiz'))
 
 def _clear_quiz_session():
     session.pop('score', None)

@@ -30,21 +30,21 @@ def evaluate_equation(equation: str) -> str:
         return f"Error: Calculating error. Not acceptable"
 
 #Testing    
-if __name__ == "__main__":
-    test_equations = [
-        "2 + 2 = 4",
-        "10 - 5 = 5",
-        "3 * 4 = 12",
-        "8 / 2 = 4",
-        "5 + 5 = 11",
-        "2 + 2 = 5",
-        "abc = 123",
-        "1 + 1 = ",
-        "99 + 99 = 198"
-    ]
+# if __name__ == "__main__":
+#     test_equations = [
+#         "2 + 2 = 4",
+#         "10 - 5 = 5",
+#         "3 * 4 = 12",
+#         "8 / 2 = 4",
+#         "5 + 5 = 11",
+#         "2 + 2 = 5",
+#         "abc = 123",
+#         "1 + 1 = ",
+#         "99 + 99 = 198"
+#     ]
 
-    for eq in test_equations:
-        print(f"Equation: {eq}")
-        print(f"Valid: {validate_equation(eq)}")
-        print(f"Evaluation: {evaluate_equation(eq)}")
-        print()
+#     for eq in test_equations:
+#         print(f"Equation: {eq}")
+#         print(f"Valid: {validate_equation(eq)}")
+#         print(f"Evaluation: {evaluate_equation(eq)}")
+#         print()

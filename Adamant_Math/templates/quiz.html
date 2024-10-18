@@ -13,44 +13,39 @@
                 <a class="navbar-brand" href="{{ url_for('index') }}">Dataman</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+                <li class="active"><a href="{{ url_for('answer_checker') }}">Answer Checker</a></li>
+                <li class="active"><a href="{{ url_for('memory_bank') }}">Memory Bank</a></li>
+                <li class="active"><a href="{{ url_for('number_guesser') }}">Number Guesser</a></li>
+                <li class="active"><a href="{{ url_for('number_memory') }}">Number Memory</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
-        <h2>Quiz</h2>
         {% if quiz_completed %}
             <div class="alert alert-success" role="alert">
                 Congratulations! You've completed all the questions in the quiz.
                 <p>Your Score: {{ score }} out of 10</p>
             </div>
-            <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
-        {% elif question %}
-            {% if not answer_checked %}
-                <h3>Question {{ question_number }}</h3>
-                <form action="{{ url_for('check_answer') }}" method="post">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="question" name="question" value="{{ question }}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="answer">Your Answer:</label>
-                        <input type="number" class="form-control" id="answer" name="answer" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Answer</button>
-                </form>
-            {% else %}
-                <div class="alert {% if result == 'Correct!' %}alert-success{% else %}alert-danger{% endif %}" role="alert">
-                    {{ result }}
-                </div>
-                <a href="{{ url_for('quiz') }}" class="btn btn-primary">Next Question</a>
-            {% endif %}
-        {% else %}
-            <div class="alert alert-warning" role="alert">
-                No questions available. Please add some equations to the Memory Bank.
+            <div class="btn-group" role="group">
+                <a href="{{ url_for('quiz', reset_quiz=True) }}" class="btn btn-success">Try Again</a>
+                <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
             </div>
-            <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
+        {% else %}
+            <h3>Question {{ question_number }}</h3>
+            <form method="post" action="{{ url_for('quiz') }}" autocomplete="off">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="question" name="question" value="{{ question }}" readonly autocomplete="off" required disabled>
+                </div>
+                <div class="form-group">
+                    <label for="answer">Your Answer:</label>
+                    <input type="number" class="form-control" id="answer" name="answer" required>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-primary">Submit Answer</button>
+                    <a href="{{ url_for('memory_bank') }}" class="btn btn-primary">Leave Quiz</a>
+                </div>
+            </form>
         {% endif %}
     </div>
 </body>

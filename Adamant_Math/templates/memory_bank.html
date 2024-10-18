@@ -45,7 +45,7 @@
             <li>{{ equation }}</li>
             {% endfor %}
         </ul>
-        <a href="{{ url_for('quiz') }}" class="btn btn-success">Start Quiz</a>
+        <a href="{{ url_for('quiz', reset_quiz=True) }}" class="btn btn-success">Start Quiz</a>
         <a href="{{ url_for('memory_bank', show_form=true) }}" class="btn btn-primary">Enter New Equations</a>
         {% endif %}
     </div>
