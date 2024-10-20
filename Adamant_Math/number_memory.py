@@ -30,7 +30,7 @@ def number_memory():
 
     return render_template("number_memory.html", message=message, sequence=displayed_sequence)
 
-def reset_game():
+def reset_memory():
     session.pop('sequence', None)
     session.pop('current_step', None)
     return redirect(url_for('number_memory'))

@@ -1,5 +1,5 @@
 import random
-from flask import session, render_template, request
+from flask import session, render_template, request, redirect, url_for
 
 def number_guesser():
     if 'number' not in session:
@@ -27,7 +27,7 @@ def number_guesser():
 
     return render_template("number_guesser.html", message=message)
 
-def reset_game():
+def reset_guess_game():
     session.pop('number', None)
     session.pop('attempts', None)
     return redirect(url_for('number_guesser'))
